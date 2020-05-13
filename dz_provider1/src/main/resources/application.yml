@@ -1,0 +1,47 @@
+server:
+  port: 6061
+
+## Dubbo 服务提供者配置
+spring:
+  dubbo:
+    application:
+      #应用名
+      name: provider1
+    #zookeeper的注册地址
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    #注册zookeeper的协议
+    protocol:
+      name: dubbo
+      #提供者业务层注册到dubbo中的端口号
+      port: 20881
+    #扫描提供服务的业务层实现类路径
+    scan: provider1.impl
+  datasource:
+    #配置阿里巴巴数据源的四大件
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/asd?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password:
+      #配置连接池的详细信息
+      initialSize: 1
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+
+#配置mybatis
+mybatis:
+  type-aliases-package: model
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #开启MyBatis的二级缓存
+    cache-enabled: true
+    #开启懒加载
+    lazy-loading-enabled: true
+    #false 为按需加载
+    aggressive-lazy-loading: false
+  mapper-locations: classpath:mapper/*.xml

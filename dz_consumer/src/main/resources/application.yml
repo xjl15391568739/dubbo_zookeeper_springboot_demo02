@@ -1,0 +1,36 @@
+server:
+  port: 6060
+
+spring:
+  dubbo:
+    application:
+      #应用名
+      name: consumer
+    #zookeeper的注册地址
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    ## Dubbo 服务消费者配置
+    #将消费者的控制层路径映射到dubbo中并由它管理
+    scan: consumer.controller
+
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /static/html/
+      suffix: .html
+
+  datasource:
+    #配置阿里巴巴数据源的四大件
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/asd?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password:
+      #配置连接池的详细信息
+      initialSize: 1
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
